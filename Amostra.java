@@ -115,14 +115,28 @@ public class Amostra {
 			return " Amostra = " + s;
 		}
 		
-		public int count(int[] var,int[] val) {
+		public int count(int[] var, int[] val) {
+			
 			int r=0;
-			for (int j=0; j<var.length; j++) {
-				for (int i=0; i<this.list.get(0).length; i++) {
-					if (this.list.get(i)[var[j]]== val[j]) r+=1;
+			
+			
+			for ( int i =0;  i<this.list.size(); i++ ) {
+				int[] aux = new int[var.length];
+				//System.out.println(Arrays.toString(this.list.get(i)));
+				
+				for (int x : var) {
+					
+					int k = Arrays.binarySearch(var, x);
+					 aux[k] = this.list.get(i)[x];	
 				}
+				
+				//System.out.println("Aux" + Arrays.toString(aux));
+				//System.out.println("Val" + Arrays.toString(val));
+				//System.out.println(Arrays.equals(aux, val));
+				if (Arrays.equals(aux, val)) r++;
+				
 			}
-			return r;
+			return r; 
 		}
 
 		public static void main(String[] args) {
@@ -131,6 +145,25 @@ public class Amostra {
 			int[] v = {2,3,8};
 			System.out.println(domain(amostra,v));
 			System.out.println(amostra.count(v,v));
+			
+			Amostra simple_amostra = new Amostra();
+			int[] vetor1 = {0,0,1};
+			int[] vetor2 = {1,1,0};
+			int[] vetor3 = {2,3,1};
+			int[] vetor4 = {0,3,1};
+			
+			simple_amostra.add(vetor1);
+			simple_amostra.add(vetor2);
+			simple_amostra.add(vetor3);
+			simple_amostra.add(vetor4);
+			System.out.println("Simple" + simple_amostra);
+			
+			int[] var = {0,2};
+			int[] val = {0,1};
+			
+			System.out.println(simple_amostra.count(var, val));
+			
+			
 			
 		}
 
