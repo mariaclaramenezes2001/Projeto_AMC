@@ -108,7 +108,7 @@ public class Amostra {
 		public String toString() {
 			String s="[";
 			if (list.size()>0) s+=Arrays.toString(list.get(0));
-			for (int i=0; i<list.size();i++)
+			for (int i=1; i<list.size();i++)
 				s+=","+Arrays.toString(list.get(i));
 			s+="]";
 				
