@@ -126,7 +126,7 @@ class MST{
       }
     }
  
-    // Print maximum spanning tree
+
     return parent;
  
   }}
