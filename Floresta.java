@@ -1,6 +1,8 @@
 package floresta;
 
+
 import java.util.Arrays;
+
 
 class Grafoo{
 	int[][] matrix; 
@@ -40,7 +42,7 @@ class MST{
  
     // Iterate over all possible
     // nodes of a graph
-    for (int i = 0; i < V; i++)
+    for (int i = V-1; i >=0; i--)
     {
  
       // If the current node is unvisited
@@ -61,9 +63,45 @@ class MST{
 
   
   
-  // Function to find the maximum spanning tree
-  static int[] maximumSpanningTree(Grafoo graphoo)
+  static void printMaximumSpanningTree(int graph[][], int parent[])
   {
+ 
+    // Stores total weight of
+    // maximum spanning tree
+    // of a graph
+    int MST = 0;
+    int V = graph.length;
+    // Iterate over all possible nodes
+    // of a graph
+    for (int i = V-2; i >=0; i--)
+    {
+ 
+      // Update MST
+      MST += graph[i][parent[i]];
+    }
+ 
+    System.out.println("Weight of the maximum Spanning-tree "
+                       + MST);
+    System.out.println();
+    System.out.println("Edges \tWeight");
+ 
+    // Print the Edges and weight of
+    // maximum spanning tree of a graph
+    for (int i = V-2; i >=0; i--)
+    {
+      System.out.println(parent[i] + " - " + i + " \t"
+                         + graph[i][parent[i]]);
+    }
+  }
+ 
+  
+  
+  
+  
+  
+  
+  // Function to find the maximum spanning tree
+  static int[] maximumSpanningTree(Grafoo graphoo){
  int[][]graph = graphoo.matrix;
  int V = graph.length;
     // visited[i]:Check if vertex i
@@ -87,14 +125,14 @@ class MST{
  
     // Include 1st vertex in
     // maximum spanning tree
-    weights[0] = Integer.MAX_VALUE;
-    parent[0] = -1;
+    weights[V-1] = Integer.MAX_VALUE;
+    parent[V-1] = -1;
  
     // Search for other (V-1) vertices
     // and build a tree
     
 
-    for (int i = 0; i < V - 1; i++) {
+    for (int i = V-2; i >=0; i--) {
  
       // Stores index of max-weight vertex
       // from a set of unvisited vertex
@@ -126,14 +164,14 @@ class MST{
       }
     }
  
-
+    
     return parent;
+    
  
-  }}
+  }
+  
 
-
-
-
+}
 
 
 public class Forest {
@@ -195,6 +233,9 @@ public class Forest {
 		
 		System.out.println();
 		System.out.println();
+		System.out.println("NEW VERSION OF FLOREST");
+		
+		
 		
 		Grafoo graph = new Grafoo(5);
 		
@@ -211,15 +252,19 @@ public class Forest {
 //	    { 0, 3, 0, 0, 7 },
 //	    { 6, 8, 0, 0, 9 },
 //	    { 0, 5, 7, 9, 0 } };
+		System.out.println();
 		
 		System.out.println(graph);
+		System.out.println();
+		System.out.println("Maximum Spanning Tree : " + Arrays.toString(MST.maximumSpanningTree(graph)));
 		
-		System.out.println(Arrays.toString(MST.maximumSpanningTree(graph)));
+		MST.printMaximumSpanningTree(graph.matrix, MST.maximumSpanningTree(graph));
 		
 		Forest mst = new Forest(MST.maximumSpanningTree(graph).length);
 		mst.list = MST.maximumSpanningTree(graph);
 		System.out.println("Maximum Spanning Tree  " + mst);
-		System.out.println(mst.treeQ());
+		System.out.println("Is this result a tree?: " + mst.treeQ());
+		
 		
 
 		
