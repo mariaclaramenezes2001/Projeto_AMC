@@ -1,4 +1,3 @@
-package amostra;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -102,8 +101,7 @@ public class Amostra {
 	 		return s;
 	 	}
 		
-		
-		
+	
 		@Override
 		public String toString() {
 			String s="[";
@@ -112,14 +110,13 @@ public class Amostra {
 				s+=","+Arrays.toString(list.get(i));
 			s+="]";
 				
-			return " Amostra = " + s;
+			return "Amostra = " + s;
 		}
 		
 		public int count(int[] var, int[] val) {
 			
 			int r=0;
-			
-			
+	
 			for ( int i =0;  i<this.list.size(); i++ ) {
 				int[] aux = new int[var.length];
 				//System.out.println(Arrays.toString(this.list.get(i)));
@@ -140,12 +137,24 @@ public class Amostra {
 		}
 
 		public static void main(String[] args) {
-			Amostra amostra = new Amostra("bcancer.csv");
-			System.out.println(amostra);
-			int[] v = {2,3,8};
-			System.out.println(domain(amostra,v));
-			System.out.println(amostra.count(v,v));
 			
+
+			Amostra amostra = new Amostra("thyroid.csv");
+			System.out.println(amostra);
+			int[] var = {0,2};
+			int[] val = {0,1};
+			System.out.println("domain(amostra, var) = " + domain(amostra,var));
+			System.out.println("amostra.count(var,val) = " + amostra.count(var,val));
+			System.out.println();
+			System.out.println("INFORMAÇÃO MUTUA");
+			System.out.println("Dependencia 0 e 2 = " + Grafo.info_mutua_cond(amostra, 0,1));
+			
+			
+			
+			
+			System.out.println();System.out.println();
+			System.out.println("EXEMPLO SIMPLES");
+			System.out.println();
 			Amostra simple_amostra = new Amostra();
 			int[] vetor1 = {0,0,1};
 			int[] vetor2 = {1,1,0};
@@ -156,15 +165,13 @@ public class Amostra {
 			simple_amostra.add(vetor2);
 			simple_amostra.add(vetor3);
 			simple_amostra.add(vetor4);
-			System.out.println("Simple" + simple_amostra);
+			System.out.println("Simple" + simple_amostra);	
 			
-			int[] var = {0,2};
-			int[] val = {0,1};
-			
-			System.out.println(simple_amostra.count(var, val));
-			
-			
-			
+			System.out.println("domain_aux(simple, 0) = " + domain_aux(simple_amostra, 0));
+			System.out.println("domain_aux(simple, 2) = " + domain_aux(simple_amostra, 2));
+			System.out.println("domain(simple, (0,2) ) = " + domain(simple_amostra, var));
+			System.out.println("simple.count( (var = (0,2); val = (0,1) ) ) = " + simple_amostra.count(var, val));
+			System.out.println();
+		
 		}
-
 }
