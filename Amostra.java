@@ -15,7 +15,7 @@ public class Amostra {
 			this.list = new ArrayList<int []>();
 		}
 
-		// Metodo construtor a partir de comma separated file -  ((OVERLOADING))
+		// Metodo construtor a partir de comma separated file -  ((OVERLOAD))
 		
 		public Amostra(String csvFile) {
 			this.list = new ArrayList<int []>();;
@@ -72,6 +72,10 @@ public class Amostra {
 			return list.get(n);
 		}
 		
+		public ArrayList<int[]> getList() {
+			return list;
+		}
+
 		public static int domain_aux(Amostra a, int position) {
 	 		int max1 = 0; 
 	 		for (int i = 0;  i< a.list.size(); i++){
@@ -113,24 +117,45 @@ public class Amostra {
 			return "Amostra = " + s;
 		}
 		
+//		public int count(int[] var, int[] val) {
+//			
+//			int r=0;
+//			Arrays.sort(var);
+//	
+//			for ( int i =0;  i<this.list.size(); i++ ) {
+//				int[] aux = new int[var.length];
+//				//System.out.println(Arrays.toString(this.list.get(i)));
+//				
+//				for (int x : var) {
+//					
+//					int k = Arrays.binarySearch(var, x);
+//					 aux[k] = this.list.get(i)[x];	
+//				}
+//				
+//				//System.out.println("Aux" + Arrays.toString(aux));
+//				//System.out.println("Val" + Arrays.toString(val));
+//				//System.out.println(Arrays.equals(aux, val));
+//				if (Arrays.equals(aux, val)) r++;
+//				
+//			}
+//			return r; 
+//		}
 		public int count(int[] var, int[] val) {
-			
+			Arrays.sort(var);
 			int r=0;
-	
+			
+			
 			for ( int i =0;  i<this.list.size(); i++ ) {
-				int[] aux = new int[var.length];
+				boolean eq=true;
+				int k=0;
 				//System.out.println(Arrays.toString(this.list.get(i)));
 				
-				for (int x : var) {
-					
-					int k = Arrays.binarySearch(var, x);
-					 aux[k] = this.list.get(i)[x];	
+				while (k<var.length && eq) {
+					if (list.get(i)[var[k]]!=val[k]) eq=false;
+					else {
+					k++;}
 				}
-				
-				//System.out.println("Aux" + Arrays.toString(aux));
-				//System.out.println("Val" + Arrays.toString(val));
-				//System.out.println(Arrays.equals(aux, val));
-				if (Arrays.equals(aux, val)) r++;
+				if (k==var.length) r++;
 				
 			}
 			return r; 
@@ -156,15 +181,21 @@ public class Amostra {
 			System.out.println("EXEMPLO SIMPLES");
 			System.out.println();
 			Amostra simple_amostra = new Amostra();
-			int[] vetor1 = {0,0,1};
+			int[] vetor1 = {1,0,1};
 			int[] vetor2 = {1,1,0};
 			int[] vetor3 = {2,3,1};
 			int[] vetor4 = {0,3,1};
+			int[] vetor5 = {0,2,1};
+			int[] vetor6 = {1,3,1};
+	
 			
 			simple_amostra.add(vetor1);
 			simple_amostra.add(vetor2);
 			simple_amostra.add(vetor3);
 			simple_amostra.add(vetor4);
+			simple_amostra.add(vetor5);
+			simple_amostra.add(vetor6);
+		
 			System.out.println("Simple" + simple_amostra);	
 			
 			System.out.println("domain_aux(simple, 0) = " + domain_aux(simple_amostra, 0));
@@ -172,6 +203,8 @@ public class Amostra {
 			System.out.println("domain(simple, (0,2) ) = " + domain(simple_amostra, var));
 			System.out.println("simple.count( (var = (0,2); val = (0,1) ) ) = " + simple_amostra.count(var, val));
 			System.out.println();
+			
+		
 		
 		}
 }
