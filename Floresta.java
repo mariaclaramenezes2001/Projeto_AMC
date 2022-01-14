@@ -84,12 +84,9 @@ public class Forest {
 		
 		System.out.println(graph);
 		System.out.println();
-		System.out.println("Maximum Spanning Tree : " + Arrays.toString(MST.maximumSpanningTree(graph)));
-		
-		MST.printMaximumSpanningTree(graph.matrix, MST.maximumSpanningTree(graph));
-		
-		Forest mst = new Forest(MST.maximumSpanningTree(graph).length);
-		mst.list = MST.maximumSpanningTree(graph);
+	
+
+		Forest mst = MST.maximumSpanningTree(graph);
 		System.out.println("Maximum Spanning Tree  " + mst);
 		System.out.println("Is this result a tree?: " + mst.treeQ());
 		
@@ -98,3 +95,4 @@ public class Forest {
 		
 		}	
 	}
+
