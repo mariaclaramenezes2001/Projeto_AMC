@@ -22,12 +22,10 @@ class MST{
 	    }
 	    return index;
 	  }
-
-	  
+  
 	  
 	  static void printMaximumSpanningTree(double graph[][], int parent[])
-	  {
-	 
+	  { 
 	    double MST = 0;
 	    int V = graph.length;
 
@@ -113,6 +111,7 @@ public class Grafo{
 
 
 	public static double info_mutua_cond(Amostra amostra, int X, int Y) {
+		
 		double info_mutua_condicional = 0; // == dependencia 
 		double N = amostra.length();
 		int N_xy; int N_x; int N_y;
@@ -122,8 +121,8 @@ public class Grafo{
 		int domainY = Amostra.domain_aux(amostra, Y);
 		
 		for ( int x = 0; x < domainX; x++) {
-			int[] varX = {X};
-			int[] valx = {x};
+			//int[] varX = {X};
+			//int[] valx = {x};
 			
 			for (int y = 0; y < domainY; y++) {
 				
@@ -134,13 +133,13 @@ public class Grafo{
 				double Pr_xy = N_xy / N;
 													//System.out.println("Pr_xy = " + Pr_xy);
 				
-				N_x = amostra.count(varX, valx); 	//System.out.println("N_x = " + N_x);
+				N_x = amostra.count(X, x); 	//System.out.println("N_x = " + N_x);
 				double Pr_x = N_x / N;
 													//System.out.println("Pr_x = " + Pr_x);
 				
-				int[] varY = {Y};
-				int[] valy = {y};
-				N_y = amostra.count(varY, valy); 	//System.out.println("N_y = " + N_y);
+				//int[] varY = {Y};
+				//int[] valy = {y};
+				N_y = amostra.count(Y, y); 	//System.out.println("N_y = " + N_y);
 				double Pr_y = N_y / N;
 													//System.out.println("Pr_y = " + Pr_y);
 				
@@ -157,10 +156,12 @@ public class Grafo{
 	public static Grafo grafoP(Amostra amostra) {
 		int n_1 = amostra.getList().get(0).length; 
 		Grafo grafoP = new Grafo(n_1);
-		// arranjar forma de nao duplicar leituras  X Y e Y X 
+		
+		
 		
 		for ( int variavel1 = 0; variavel1 < n_1; variavel1++) {
-			for ( int variavel2 = 0; variavel2 < n_1; variavel2++) {
+			for ( int variavel2 = variavel1; variavel2 < n_1; variavel2++) {
+				
 				if (variavel1 != variavel2) {
 					double peso = info_mutua_cond(amostra, variavel1, variavel2);
 					grafoP.add_edge(variavel1, variavel2, peso);
