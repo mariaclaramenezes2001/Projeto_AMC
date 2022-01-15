@@ -32,6 +32,8 @@ public class App1 extends JFrame {
 	 * Create the frame.
 	 */
 	public App1() {
+		setEnabled(false);
+		setAutoRequestFocus(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -43,13 +45,13 @@ public class App1 extends JFrame {
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = fileChooser.getSelectedFile();
+		    
 		    Amostra amostra_app = new Amostra(selectedFile.getName());
+		    
 		    Grafo grafoP_app = Grafo.grafoP(amostra_app);
 		    Forest MST_app = MST.maximumSpanningTree(grafoP_app);
-		    
-		    System.out.println(amostra_app);
-		    System.out.println(grafoP_app);
-		    System.out.println(MST_app);
+		    BN bayes_app = new BN(MST_app, amostra_app, 0.5);
+		    System.out.println(bayes_app);
 		    
 		}
 	}
