@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -140,10 +141,12 @@ public class Amostra {
 //			}
 //			return r; 
 //		}
+		
 		public int count(int[] var, int[] val) {
-			Arrays.sort(var);
-			int r=0;
 			
+//			Arrays.sort(var);
+			int r=0;
+			 // var = (4,2,1) val = (1,0,0)
 			
 			for ( int i =0;  i<this.list.size(); i++ ) {
 				boolean eq=true;
@@ -154,13 +157,21 @@ public class Amostra {
 					if (list.get(i)[var[k]]!=val[k]) eq=false;
 					else {
 					k++;}
+
 				}
 				if (k==var.length) r++;
 				
 			}
 			return r; 
 		}
-
+		
+		public int count(int var, int val) {
+			int r = 0; 
+			for(int m = 0; m < this.length(); m ++ ) {
+				if (this.list.get(m)[var] == val) r ++;
+			}
+			return r;
+		}
 		public static void main(String[] args) {
 			
 
