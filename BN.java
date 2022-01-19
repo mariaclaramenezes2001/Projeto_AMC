@@ -80,10 +80,10 @@ public class BN implements Serializable{
 				
 				
 			//para a classe
-			
+			}
 			prob = prob * rede.DFOc[vec[vec.length-1]];
 				
-			}	
+				
 			return prob;			
 		}
 		
