@@ -124,7 +124,7 @@ public class app2 extends JFrame {
 					System.out.println(Arrays.toString(input_vec));
 					textArea.setText(Arrays.toString(input_vec));
 					System.out.println(BN.classifica(input_vec, bayes));
-					textArea.setText(String.valueOf(BN.classifica(input_vec, bayes)));
+					textArea.setText("\n" + "\n" + "\t Classificação = " +String.valueOf(BN.classifica(input_vec, bayes)));
 					
 				}
 				catch ( Exception ee){
