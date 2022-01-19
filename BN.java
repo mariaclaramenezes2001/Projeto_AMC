@@ -1,8 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class BN {
+public class BN implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	public Forest arvore;
 	public ArrayList<double[][]> DFOvs;
 	public double[] DFOc;
@@ -132,8 +135,18 @@ public class BN {
 			System.out.println(prob(vec0, bn_tiroide) > prob(vec1, bn_tiroide));
 			
 			
-			int[] vec_inc = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0};
+			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0};
 			
-			System.out.println(classifica(vec_inc, bn_tiroide));
+			
+			System.out.println(classifica(vec_inc0, bn_tiroide));
+			
+			Amostra amostra_h = new Amostra("hepatitis.csv");
+			Grafo grafoP_h = Grafo.grafoP(amostra_h);
+			Forest MSTree_h = MST.maximumSpanningTree(grafoP_h);
+
+			
+			BN bn_h = new BN(MSTree_h, amostra_h,0.5);
+			
+			
 		}		
 }
