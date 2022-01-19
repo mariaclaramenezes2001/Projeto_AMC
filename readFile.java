@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+@SuppressWarnings({ "serial", "unused" })
 public class readFile extends JFrame {
 
 	private JPanel contentPane;
@@ -60,20 +61,44 @@ public class readFile extends JFrame {
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
-		scroll.setBounds(50, 111, 334, 37);
+		scroll.setBounds(50, 80, 334, 123);
 		contentPane.add(scroll);
 		
 		
+		JFileChooser filechooser = new JFileChooser ();
 		
-		JButton button_save = new JButton("Save Amostra");
+		JButton btnNewButton_2 = new JButton("Read CSV File");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int r = filechooser.showOpenDialog((Component)e.getSource());
+				if ( r == JFileChooser.APPROVE_OPTION) {
+					System.out.println(filechooser.getSelectedFile());
+					Amostra A = new Amostra(filechooser.getSelectedFile().getAbsolutePath());
+					textArea.setText(A.toString());
+					
+					
+				}
+			}
+		});
+		 
+		
+		JButton button_save = new JButton("Save Bayes");
 		button_save.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FileOutputStream fileOut;
+				
 				try {
-					fileOut = new FileOutputStream("/Users/mariaclaramenezes/Desktop/Amostra/Amostra.bin");
-					ObjectOutputStream objectOut = new ObjectOutputStream( fileOut);
 					
-					objectOut.writeObject(A);
+					Amostra A = new Amostra(filechooser.getSelectedFile().getAbsolutePath());
+					FileOutputStream fileOut = new FileOutputStream("/Users/mariaclaramenezes/Desktop/Amostra/BN.bin");
+					ObjectOutputStream objectOut = new ObjectOutputStream( fileOut );
+					
+					
+					Grafo A_grafo = Grafo.grafoP(A);
+					Forest A_mst = MST.maximumSpanningTree(A_grafo);		
+					BN B = new BN(A_mst, A,0.5);
+					System.out.println(B);
+	
+					objectOut.writeObject(B);
 					objectOut.close();
 					fileOut.close();
 					textArea.setText("Saved Successfully");
@@ -83,21 +108,22 @@ public class readFile extends JFrame {
 				}
 			}
 		});
-		button_save.setBounds(50, 194, 117, 29);
+		button_save.setBounds(50, 215, 117, 29);
 		contentPane.add(button_save);
 		
 		
 				
 		
-		JButton button_read = new JButton("Read Amostra");
+		JButton button_read = new JButton("Read Bayes");
 		button_read.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FileInputStream fileInput;
+				
 				
 				try {
-					fileInput = new FileInputStream( new File("/Users/mariaclaramenezes/Desktop/Amostra/Amostra.bin"));
+					FileInputStream fileInput;
+					fileInput = new FileInputStream( new File("/Users/mariaclaramenezes/Desktop/Amostra/BN.bin"));
 					ObjectInputStream oi = new ObjectInputStream(fileInput);
-					Amostra B = (Amostra)oi.readObject();
+					BN B = (BN)oi.readObject();
 					textArea.setText(B.toString());
 					oi.close();
 					fileInput.close();
@@ -107,25 +133,10 @@ public class readFile extends JFrame {
 				}
 			}
 		});
-		button_read.setBounds(266, 194, 117, 29);
+		button_read.setBounds(267, 215, 117, 29);
 		contentPane.add(button_read);
 		
-		
-		JFileChooser filechooser = new JFileChooser ();
-		
-		JButton btnNewButton_2 = new JButton("Read CVS File");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int r = filechooser.showOpenDialog((Component)e.getSource());
-				if ( r == filechooser.APPROVE_OPTION) {
-					System.out.println(filechooser.getSelectedFile());
-					Amostra A = new Amostra(filechooser.getSelectedFile().getAbsolutePath());
-					textArea.setText(A.toString());
-					
-					
-				}
-			}
-		});
+	
 		btnNewButton_2.setBounds(50, 39, 117, 29);
 		contentPane.add(btnNewButton_2);
 		
