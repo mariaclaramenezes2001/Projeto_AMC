@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
 
@@ -84,7 +85,9 @@ class MST{
 	    return MST_parents;
 	  }}
 
-public class Grafo{
+public class Grafo implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	double[][] matrix; 
 	
 	public Grafo(int n) {
@@ -227,5 +230,3 @@ public class Grafo{
 	}
 	
 }
-
-
