@@ -1,5 +1,6 @@
 
 public class leave_one_out {
+public class leave_one_out {
 	
 	
 	public static double leaveOneOut(Amostra amostra) {
@@ -9,9 +10,14 @@ public class leave_one_out {
 		for(int i = 0; i< amostra.length()-1; i ++) {
 			ss++;
 			
-			Amostra amostraMinusOne = amostra;
+			
+			Amostra amostraMinusOne = Amostra.clone(amostra);		
+
 			amostraMinusOne.getList().remove(i);
-			int[] v = amostra.getList().get(i);
+			
+//			System.out.println(amostra.length() + "\t " + amostraMinusOne.length());
+			
+			int[] v = amostra.element(i);
 			
 			Grafo grafo = Grafo.grafoP(amostraMinusOne);
 			Forest mstree = MST.maximumSpanningTree(grafo);
@@ -36,10 +42,13 @@ public class leave_one_out {
 		
 		for(int i = 0; i< amostra.length()-1; i ++) {
 			ss++;
-			
-			Amostra amostraMinusOne = amostra;
+			Amostra amostraMinusOne = Amostra.clone(amostra);		
+
 			amostraMinusOne.getList().remove(i);
-			int[] v = amostra.getList().get(i);
+			
+//			System.out.println(amostra.length() + "\t " + amostraMinusOne.length());
+			
+			int[] v = amostra.element(i);
 			
 			Grafo grafo = Grafo.grafoP(amostraMinusOne);
 			Forest mstree = MST.maximumSpanningTree(grafo);
@@ -65,7 +74,7 @@ public class leave_one_out {
 		for(int i = 0; i< amostra.length()-1; i ++) {
 			ss++;
 			
-			if( amostra.getList().get(i)[last] == 0) s++;
+			if( amostra.element(i)[last] == 0) s++;
 			
 		}
 		return s/ss *100 ;
