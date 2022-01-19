@@ -1,8 +1,11 @@
 
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Forest {
+public class Forest implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	int[] list;
 	//cada posicao representa um no e cada valor é o index do seu pai
 	
@@ -78,7 +81,7 @@ public class Forest {
 //	  { { 0, 2, 0, 6, 0 },
 //		{ 2, 0, 3, 8, 5 },
 //	    { 0, 3, 0, 0, 7 },
-//	    { 6, 8, 0, 0, 9 },
+//	    { 6, 8, 0, 0, 9 }, 
 //	    { 0, 5, 7, 9, 0 } };
 		System.out.println();
 		
@@ -90,9 +93,24 @@ public class Forest {
 		System.out.println("Maximum Spanning Tree  " + mst);
 		System.out.println("Is this result a tree?: " + mst.treeQ());
 		
+		Grafo prim = new Grafo(6);
+		prim.add_edge(0,1,6);
+		prim.add_edge(0,2,1);
+		prim.add_edge(0,3,5);
+		prim.add_edge(1,2,2);
+		prim.add_edge(1,4,5);
+		prim.add_edge(2,3,2);
+		prim.add_edge(2,4,6);
+		prim.add_edge(2,5,4);
+		prim.add_edge(3,5,4);
+		prim.add_edge(4,5,3);
+		
+		Forest mst_prim = MST.maximumSpanningTree(prim);
+		System.out.println(mst_prim);
 		
 
 		
 		}	
 	}
+
 
