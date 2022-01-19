@@ -1,6 +1,6 @@
 
 public class leave_one_out {
-public class leave_one_out {
+
 	
 	
 	public static double leaveOneOut(Amostra amostra) {
