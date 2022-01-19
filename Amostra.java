@@ -77,8 +77,13 @@ public class Amostra implements Serializable {
 			return list.get(n);
 		}
 		
+	
 		public ArrayList<int[]> getList() {
 			return list;
+		}
+
+		public void setList(ArrayList<int[]> list) {
+			this.list = list;
 		}
 
 		public static int domain(Amostra a, int position) {
@@ -153,10 +158,21 @@ public class Amostra implements Serializable {
 			}
 			return r;
 		}
+		
+		
+		
+		
+		public static Amostra clone(Amostra a) {
+			Amostra clone = new Amostra();
+			clone.list = ((ArrayList<int[]>)a.getList().clone());
+			return clone;
+		}
+		
+		
 		public static void main(String[] args) {
 			
 
-			Amostra amostra = new Amostra("thyroid.csv");
+			Amostra amostra = new Amostra("diabetes.csv");
 			System.out.println(amostra);
 			int[] var = {0,2};
 			int[] val = {0,1};
@@ -199,4 +215,6 @@ public class Amostra implements Serializable {
 		
 		
 		}
+
+		
 }
