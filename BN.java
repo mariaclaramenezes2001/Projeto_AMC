@@ -37,21 +37,21 @@ public class BN implements Serializable{
 			}
 		}
 		return dfo_var;}
-		
-		
-		public double[] DFO_class(Amostra amostra, double s) {
-			double[] dfo_class = new double[2];
-			int[] class_index = {amostra.getList().get(0).length-1};
-			int[] class0 = {0};
-			int[] class1 = {1};
-			
-			dfo_class[0] = (amostra.count(class_index, class0) + s) / (  amostra.length()+ 2*s);
-			dfo_class[1] = (amostra.count(class_index, class1) + s) / (  amostra.length() + 2*s);
 
+		public double[] DFO_class(Amostra amostra, double s) {
+			int[] class_index = {amostra.element(0).length-1};
+			int domain = Amostra.domain(amostra, class_index);
+			double[] dfo_class = new double[domain];
+		
+			for (int i=0; i<domain;i++) {
+				int[] classi = {i};
+				dfo_class[i] = (amostra.count(class_index, classi) + s) / (  amostra.length()+ domain*s);
+			}
+		
 			return dfo_class;			
 		}
 		
-
+		
 		public BN(Forest MSTree, Amostra amostra, double s){
 			this.arvore = MSTree;
 			this.DFOc = DFO_class(amostra,s);
@@ -87,21 +87,24 @@ public class BN implements Serializable{
 				
 			return prob;			
 		}
-		
+
 		public static int classifica(int[] vec_inc, BN rede) {
-			int[] vec0 = new int[vec_inc.length + 1];
-			int[] vec1 = new int[vec_inc.length + 1];
-			for (int i =0; i<vec_inc.length; i++) {
-				vec0[i] = vec_inc[i];
-				vec1[i] = vec_inc[i];
-			}
-			vec0[vec0.length-1] = 0;
-			vec1[vec1.length-1] = 1;
-			if (prob (vec0, rede) > prob (vec1, rede)) return 0;
-			else return 1;
+			int[] veci = new int[vec_inc.length+1];
+			double max_prob = 0;
+			int r=-1;
 			
+			for (int i=0; i<rede.DFOvs.get(i)[0].length; i++) {
+				for (int j=0; j<vec_inc.length; j++) veci[j] = vec_inc[j];	
+				veci[veci.length-1] = i;
+				if (prob(veci,rede)>max_prob) {
+					max_prob = prob(veci,rede);
+					r=i;
+				}
+			}
+			
+			return r;
 		}
-	
+		
 
 		@Override
 		public String toString() {
@@ -127,16 +130,16 @@ public class BN implements Serializable{
 			BN bn_tiroide = new BN(MSTree_tiroide, amostra_tiroide,0.5);
 			System.out.println( bn_tiroide);	
 			
-			int[] vec0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0};
+			int[] vec0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0};
 			System.out.println();
-			int[] vec1 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1};
+			int[] vec1 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1};
 			System.out.println(prob(vec0, bn_tiroide));
 			System.out.println(prob(vec1, bn_tiroide));
 			System.out.print("Prob of class being 0 > prob of class being 1 for vector {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,class}:  " );
 			System.out.println(prob(vec0, bn_tiroide) > prob(vec1, bn_tiroide));
 			
 			
-			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0};
+			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0};
 			
 			
 			System.out.println(classifica(vec_inc0, bn_tiroide));

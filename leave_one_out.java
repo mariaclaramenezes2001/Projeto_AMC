@@ -84,7 +84,8 @@ public class leave_one_out {
 	}
 	
 	public static void main( String[] args) {
-/*		Amostra a = new Amostra("bcancer.csv");
+		
+		Amostra a = new Amostra("bcancer.csv");
 		System.out.println("Accuracy bcancer.csv = " + leaveOneOut(a) + "%"); 
 		System.out.println("Classifies as 1 One bcancer.csv = " + isOne(a) + "%"); 
 		System.out.println("percentOfZeros bcancer.csv = " + percentOfZeros(a) + "%"); System.out.println();
@@ -99,12 +100,12 @@ public class leave_one_out {
 		System.out.println("Accuracy hepatitis.csv = " + leaveOneOut(c) + "%");
 		System.out.println("Classifies as 1 hepatitis.csv = " + isOne(c) + "%");
     	System.out.println("percentOfOnes hepatitis.csv = " + (100-percentOfZeros(c)) + "%"); System.out.println();
-*/	
+/*	
 		Amostra d = new Amostra("thyroid.csv");
 		System.out.println("Accuracy thyroid.csv = " + leaveOneOut(d) + "%");
 		System.out.println("Classifies as 1 thyroid.csv = " + isOne(d) + "%");
 		System.out.println("percentOfZeros thyroid.csv = " + percentOfZeros(d) + "%"); System.out.println();
-		
+*/		
 	
 	}
 
