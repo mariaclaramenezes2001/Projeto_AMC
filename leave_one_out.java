@@ -63,7 +63,7 @@ public class leave_one_out {
 			}
 		
 			if (amostraMinusOne.possibleQ(v)) {
-				if ( BN.classifica(vv, rede) == v[v.length-1]) s++;
+				if ( BN.classifica(vv, rede) == 1) s++;
 			}
 			
 		}
