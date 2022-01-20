@@ -1,4 +1,4 @@
-
+package amostra;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -84,6 +84,19 @@ public class Amostra implements Serializable {
 
 		public void setList(ArrayList<int[]> list) {
 			this.list = list;
+		}
+		
+		public boolean possibleQ(int[] v) {
+			if (v.length != this.list.get(0).length) return false;
+			else {
+				boolean eq=true;
+				int i=0;
+				while (i<v.length && eq) {
+					if (v[i]>=domain(this, i)) eq=false;
+					i++;
+				}
+				return eq;
+			}
 		}
 
 		public static int domain(Amostra a, int position) {

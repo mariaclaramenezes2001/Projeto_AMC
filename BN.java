@@ -1,3 +1,5 @@
+package amostra;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,8 +78,7 @@ public class BN implements Serializable{
 				int valor_no = vec[i];
 				int pai = rede.arvore.list[i];
 				int valor_pai = vec[pai];
-				prob = prob * rede.DFOvs.get(i)[valor_pai][valor_no];
-				
+				prob *= rede.DFOvs.get(i)[valor_pai][valor_no];
 				
 			//para a classe
 			}
@@ -126,16 +127,16 @@ public class BN implements Serializable{
 			BN bn_tiroide = new BN(MSTree_tiroide, amostra_tiroide,0.5);
 			System.out.println( bn_tiroide);	
 			
-			int[] vec0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0};
+			int[] vec0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0};
 			System.out.println();
-			int[] vec1 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1};
+			int[] vec1 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1};
 			System.out.println(prob(vec0, bn_tiroide));
 			System.out.println(prob(vec1, bn_tiroide));
 			System.out.print("Prob of class being 0 > prob of class being 1 for vector {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,class}:  " );
 			System.out.println(prob(vec0, bn_tiroide) > prob(vec1, bn_tiroide));
 			
 			
-			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0};
+			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0};
 			
 			
 			System.out.println(classifica(vec_inc0, bn_tiroide));
