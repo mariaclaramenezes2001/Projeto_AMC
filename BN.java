@@ -39,17 +39,17 @@ public class BN implements Serializable{
 		return dfo_var;}
 
 		public double[] DFO_class(Amostra amostra, double s) {
-			int[] class_index = {amostra.element(0).length-1};
-			int domain = Amostra.domain(amostra, class_index);
-			double[] dfo_class = new double[domain];
-		
-			for (int i=0; i<domain;i++) {
-				int[] classi = {i};
-				dfo_class[i] = (amostra.count(class_index, classi) + s) / (  amostra.length()+ domain*s);
+				int class_index = amostra.element(0).length-1;
+				int domain = Amostra.domain(amostra, class_index);
+				double[] dfo_class = new double[domain];
+			
+				for (int i=0; i<domain;i++) {
+					int classi = i;
+					dfo_class[i] = (amostra.count(class_index, classi) + s) / (  amostra.length()+ domain*s);
+				}
+	
+				return dfo_class;			
 			}
-		
-			return dfo_class;			
-		}
 		
 		
 		public BN(Forest MSTree, Amostra amostra, double s){
