@@ -89,19 +89,22 @@ public class BN implements Serializable{
 		}
 
 		public static int classifica(int[] vec_inc, BN rede) {
-			int[] veci = new int[vec_inc.length+1];
-			double max_prob = 0;
-			int r=-1;
 			
-			for (int i=0; i<rede.DFOvs.get(i)[0].length; i++) {
-				for (int j=0; j<vec_inc.length; j++) veci[j] = vec_inc[j];	
+			int[] veci = new int[vec_inc.length+1];			
+			double max_prob = Integer.MIN_VALUE;
+			int r = Integer.MIN_VALUE;	
+			for (int j=0; j<vec_inc.length; j++) {
+				veci[j] = vec_inc[j];
+			}
+				
+			for (int  i = 0; i < rede.DFOc.length; i ++) {
+					
 				veci[veci.length-1] = i;
 				if (prob(veci,rede)>max_prob) {
 					max_prob = prob(veci,rede);
-					r=i;
+					r = veci[veci.length-1];
 				}
-			}
-			
+			}			
 			return r;
 		}
 		
