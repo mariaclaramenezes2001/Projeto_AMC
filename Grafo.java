@@ -27,28 +27,7 @@ class MST{
 	    return index;
 	    
 	  }
-  
-	  
-	  static void printMaximumSpanningTree(double graph[][], int parent[])
-	  { 
-	    double MST = 0;
-	    int V = graph.length;
-
-	    for (int i = V-2; i >=0; i--)
-	    {
-	      MST += graph[i][parent[i]];
-	    }
-	 
-	    System.out.println("Weight of the maximum Spanning-tree "+ MST);
-	    System.out.println();
-	    System.out.println("Edges \tWeight");
-
-	    for (int i = V-2; i >=0; i--)
-	    {
-	      System.out.println(parent[i] + " - " + i + " \t" + graph[i][parent[i]]);
-	    }
-	  }
-	 
+  	 
 
 	 static Forest maximumSpanningTree(Grafo graphoo){
 	 double[][]graph = graphoo.matrix;
@@ -81,7 +60,7 @@ class MST{
 	        }
 	      }
 	    }    
-	    //printMaximumSpanningTree(graph, parent);
+	    
 	    Forest MST_parents = new Forest(parent.length);
 	    MST_parents.list = parent;
 	    return MST_parents;
