@@ -4,6 +4,52 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 
+class Prim{
+	
+	static int[] BestMatch(Grafo graph, boolean[] visited){
+		int[] bestmatch= new int[2];
+		double bestweight = Integer.MIN_VALUE;
+		bestmatch[0]=-1;
+		bestmatch[1]=-1;
+		double[][] ma = graph.matrix;
+		
+		for (int i=0; i< visited.length;i++) {
+			if (visited[i]) {
+				for (int j=0; j<visited.length;j++) {
+					if (!visited[j] && ma[i][j]>bestweight) {
+							bestmatch[0]=i;
+							bestmatch[1]=j;
+							bestweight = ma[i][j];
+					}
+				}
+			}
+		}
+		return bestmatch;
+	}
+	
+	static Forest MaximumSpanningTree(Grafo graph) {
+		int dim = graph.matrix.length;
+		boolean[] visited = new boolean[dim];
+		int[] parents = new int[dim];
+		for (int i=0; i<dim;i++) visited[i]=false;
+		visited[dim-1]=true;
+		parents[dim-1]=-1;
+		
+		boolean[] alltrue = new boolean[dim];
+		for (int i=0; i<dim;i++) alltrue[i]=true;
+		
+		while (!Arrays.equals(alltrue, visited)) {
+			int[] bestmatch= BestMatch(graph,visited);
+			visited[bestmatch[1]]=true;
+			parents[bestmatch[1]]=bestmatch[0];
+		}
+		Forest MST = new Forest(dim);
+		MST.list= parents;
+		return MST;
+	}
+	
+}
+
 class MST{
 	 
 	  static int findMaxVertex(boolean visited[], double weights[], Grafo graphoo)
@@ -162,13 +208,13 @@ public class Grafo implements Serializable {
 	
 	
 	public static Grafo grafoP(Amostra amostra) {
-		int n_1 = amostra.getList().get(0).length; 
+		int n_1 = amostra.element(0).length; 
 		Grafo grafoP = new Grafo(n_1);
 		
 		
 		
 		for ( int variavel1 = 0; variavel1 < n_1; variavel1++) {
-			for ( int variavel2 = variavel1; variavel2 < n_1; variavel2++) {
+			for ( int variavel2 = variavel1 +1; variavel2 < n_1; variavel2++) {
 				
 				if (variavel1 != variavel2) {
 					double peso = info_mutua_cond(amostra, variavel1, variavel2);
@@ -187,7 +233,7 @@ public class Grafo implements Serializable {
 		System.out.println();
 		System.out.println("info mutua condicional (amostra_tiroide, 0,1 ) = " + info_mutua_cond(amostra_tiroide, 0, 1));
 		System.out.println();
-		int[] class_index = {amostra_tiroide.getList().get(0).length-1};
+		int[] class_index = {amostra_tiroide.element(0).length-1};
 		int[] class1 = {1};
 		System.out.println(amostra_tiroide.count(class_index, class1));
 		
@@ -209,7 +255,7 @@ public class Grafo implements Serializable {
 		System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();
 		
 		
-		Amostra amostra_bcancer = new Amostra("bcancer.csv");
+		Amostra amostra_bcancer = new Amostra("hepatitis.csv");
 		System.out.println("Amostra BCancer = " + amostra_bcancer);
 		System.out.println();
 		System.out.println("info mutua condicional (amostra_bcancer, 0,1 ) = " + info_mutua_cond(amostra_bcancer, 0, 1));
@@ -227,6 +273,13 @@ public class Grafo implements Serializable {
 		System.out.println("Maximum Spanning Tree do Grafo Pesado da Amostra:");
 		System.out.println(MSTree_bc);
 		System.out.println(MSTree_bc.treeQ());
+		
+		Forest MSTree_bc1 = Prim.MaximumSpanningTree(grafoP_bc);
+		
+			System.out.println();
+			System.out.println("Maximum Spanning Tree do Grafo Pesado da Amostra:");
+			System.out.println(MSTree_bc1);
+			System.out.println(MSTree_bc1.treeQ());
 		
 	
 	}
