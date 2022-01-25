@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 
-class Prim{
+class MST{
 	
 	static int[] BestMatch(Grafo graph, boolean[] visited){
 		int[] bestmatch= new int[2];
@@ -26,7 +26,7 @@ class Prim{
 		return bestmatch;
 	}
 	
-	static Forest MaximumSpanningTree(Grafo graph) {
+	static Forest maximumSpanningTree(Grafo graph) {
 		int dim = graph.matrix.length;
 		boolean[] visited = new boolean[dim];
 		int[] parents = new int[dim];
@@ -48,68 +48,70 @@ class Prim{
 	}
 	
 }
-
-class MST{
-	 
-	  static int findMaxVertex(boolean visited[], double weights[], Grafo graphoo)
-	  {
-		  double[][] graph = graphoo.matrix;
-		  int V = graph.length;
-	   
-	    int index = -1;
-	 
-	    Double maxW = Double.MIN_VALUE; 
-	    for (int i = V-1; i >=0; i--)
-	    {
-	      if (!visited[i] && weights[i] >= maxW)
-	      {
-	    	
-	        maxW = weights[i];       
-	        index = i;      
-	      }
-	  
-	    }    
-	    return index;
-	    
-	  }
-  	 
-
-	 static Forest maximumSpanningTree(Grafo graphoo){
-	 double[][]graph = graphoo.matrix;
-	 int V = graph.length;
-	   
-	    boolean[] visited = new boolean[V]; 
-	    double[] weights = new double[V]; 
-	    int[] parent = new int[V];
-	    
-	    for (int i = 0; i < V-2; i++) {
-	      visited[i] = false;
-	      weights[i] = Double.MIN_VALUE;}
-
-	    weights[V-1] = Double.MAX_VALUE;
-	    parent[V-1] = -1;
-	 
-	    for (int i = V-2; i >=0; i--) {
-	 
-	      int maxVertexIndex  = findMaxVertex(visited, weights, graphoo);
-	      
-
-	      visited[maxVertexIndex] = true;
-	   
-	      for (int j = 0; j < V; j++) {
-	        if (graph[j][maxVertexIndex] != 0 && ! visited[j]) {
-	          if (graph[j][maxVertexIndex] > weights[j]) {
-	            weights[j] = graph[j][maxVertexIndex];
-	            parent[j] = maxVertexIndex;
-	          }
-	        }
-	      }
-	    }    
-	    
-	    Forest MST_parents = new Forest(parent.length);
-	    MST_parents.list = parent;
-	    return MST_parents;
-	  }}
+						// Antiga ( apagar no final ) 
+//class MST{
+//	 
+//	  static int findMaxVertex(boolean visited[], double weights[], Grafo graphoo)
+//	  {
+//		  double[][] graph = graphoo.matrix;
+//		  int V = graph.length;
+//	   
+//	    int index = -1;
+//	    Double maxW = Double.MIN_VALUE; 
+//	    
+//	    for (int i = V-1; i > 0; i--)
+//	    {
+//	      if (!visited[i] && weights[i] >= maxW)
+//	      {
+//	    	
+//	        maxW = weights[i];       
+//	        index = i;      
+//	      }
+//	  
+//	    }    
+//	    return index;
+//	    
+//	  }
+//  
+//	 
+//
+//	 static Forest maximumSpanningTree(Grafo graphoo){
+//	 double[][]graph = graphoo.matrix;
+//	 int V = graph.length;
+//	   
+//	    boolean[] visited = new boolean[V]; 
+//	    double[] weights = new double[V]; 
+//	    int[] parent = new int[V];
+//	    
+//	    for (int i = 0; i < V-2; i++) {
+//	      visited[i] = false;
+//	      weights[i] = Double.MIN_VALUE;}
+//
+//	    weights[V-1] = Double.MAX_VALUE;
+//	    parent[V-1] = -1;
+//	 
+//	    for (int i = V-2; i >= 0; i--) {
+//	    	
+//	      int maxVertexIndex  = findMaxVertex(visited, weights, graphoo);      
+//	      visited[maxVertexIndex] = true;
+//	   
+//	      for (int j = V-2; j >=0 ; j--) {
+//	    	  
+//	        if (graph[j][maxVertexIndex] != 0 && ! visited[j]) {
+//	        	if (graph[j][maxVertexIndex] > weights[j]) {
+//	        			
+//	        		weights[j] = graph[j][maxVertexIndex];
+//	        		parent[j] = maxVertexIndex;
+//	          
+//	          }
+//	        }
+//	      }
+//	    }    
+//	    
+//	    Forest MST_parents = new Forest(parent.length);
+//	    MST_parents.list = parent;
+//	    return MST_parents;
+//	  }}
 
 public class Grafo implements Serializable {
 	
