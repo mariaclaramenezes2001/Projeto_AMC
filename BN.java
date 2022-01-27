@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +22,6 @@ public class BN implements Serializable{
 		double[][] dfo_var = new double[m][n];
 		
 		int[] XY = {no, pai};
-		//int[] Y = {pai};
 		
 	
 		for (int i = 0; i < m; i++ ) {
@@ -36,21 +34,22 @@ public class BN implements Serializable{
 			}
 		}
 		return dfo_var;}
-
-		public double[] DFO_class(Amostra amostra, double s) {
-				int class_index = amostra.element(0).length-1;
-				int domain = Amostra.domain(amostra, class_index);
-				double[] dfo_class = new double[domain];
-			
-				for (int i=0; i<domain;i++) {
-					int classi = i;
-					dfo_class[i] = (amostra.count(class_index, classi) + s) / (  amostra.length()+ domain*s);
-				}
+		
 	
-				return dfo_class;			
+		public double[] DFO_class(Amostra amostra, double s) {
+			int class_index = amostra.element(0).length-1;
+			int domain = Amostra.domain(amostra, class_index);
+			double[] dfo_class = new double[domain];
+			
+			for (int i=0; i<domain;i++) {
+				int classi = i;
+				dfo_class[i] = (amostra.count(class_index, classi) + s) / (  amostra.length()+ domain*s);
 			}
+	
+			return dfo_class;			
+		}
 		
-		
+
 		public BN(Forest MSTree, Amostra amostra, double s){
 			this.arvore = MSTree;
 			this.DFOc = DFO_class(amostra,s);
@@ -68,25 +67,20 @@ public class BN implements Serializable{
 			double prob = 1;
 			
 			for (int i = 0; i<vec.length-1; i++) {
-				// vec[i] = valor no
-				// i = no
-				// rede.arvore.list[i] = pai
-				// vec[rede.arvore[i] = valor pai	
-				// prob ( no = valor no | pai = valor pai) == rede.DFOvs.get(no)[valor pai][valor no]
 				
 				int valor_no = vec[i];
 				int pai = rede.arvore.list[i];
 				int valor_pai = vec[pai];
-				prob *= rede.DFOvs.get(i)[valor_pai][valor_no];
+				prob = prob * rede.DFOvs.get(i)[valor_pai][valor_no];
 				
-			//para a classe
 			}
-			prob = prob * rede.DFOc[vec[vec.length-1]];
+			//para a classe
+			prob = prob * rede.DFOc[ vec[vec.length-1]  ];
 				
 				
 			return prob;			
 		}
-
+		
 		public static int classifica(int[] vec_inc, BN rede) {
 			
 			int[] veci = new int[vec_inc.length+1];			
@@ -106,7 +100,7 @@ public class BN implements Serializable{
 			}			
 			return r;
 		}
-		
+	
 
 		@Override
 		public String toString() {
@@ -144,15 +138,8 @@ public class BN implements Serializable{
 			int[] vec_inc0 = {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0};
 			
 			
-			System.out.println(classifica(vec_inc0, bn_tiroide));
-			
-			Amostra amostra_h = new Amostra("hepatitis.csv");
-			Grafo grafoP_h = Grafo.grafoP(amostra_h);
-			Forest MSTree_h = MST.maximumSpanningTree(grafoP_h);
-
-			
-			BN bn_h = new BN(MSTree_h, amostra_h,0.5);
-			
+			System.out.println(classifica(vec_inc0, bn_tiroide));		
 			
 		}		
 }
+
